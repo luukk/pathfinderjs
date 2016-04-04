@@ -3,9 +3,10 @@ function Tile(xpos,ypos,id,rows,cols) {
   this.gscore = 999;
   this.hscore = 999;
   this.fscore = 1998;
+  this.id = id;
+  this.parentsquare = 999;
   this.xpos = xpos;
   this.ypos = ypos;
-  this.id = id;
   this.rows = rows;
   this.cols = cols;
   this.cw = canvas.width;
@@ -40,5 +41,8 @@ function Tile(xpos,ypos,id,rows,cols) {
   }
   this.unwalkable = function(){
     this.status = 0;
-  } 
+  }
+  this.setParentNode = function(id){
+    this.parentsquare = id;
+  }
 }
