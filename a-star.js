@@ -1,47 +1,31 @@
 var astar = {
   openlist: [], // contains squares that might fall along the path, and need to be checked out
   closedlist:[], //list of squares that you temporarly not have to look at, these squares are unwalkable
-  unwalkableNodes:[], //these nodes are unwalkable, and don't need to be checked anymore
 
   getGrid:function(){
     var grid = Object.create(Grid);
-    this.getGridNodes(grid);
+    return grid
   },
-  getGridNodes:function(grid){
+  getGridNodes:function(){
     var self = this;
     teken.addEventListener('click',function(){
-      self.getStartingPoint(grid.startpoint);
-      self.getWalls(grid.walls),
-      self.getendpoint(grid.endpoint);
-      self.setUnwalkableNodes(grid.startpoint,grid.walls,grid.endpoint);
+      var grid = self.getGrid();
+      self.pushStartingSquare(grid);
     });
   },
-  setOpenList:function(){
-    var openlist = [];
-    return this.openlist;
-    console.log(this.openlist);
+  pushStartingSquare:function(grid){
+    var startpoint = grid.startpoint[0];
+    this.openlist.push(startpoint);
+    this.getAdjecantSquares(grid.grid);
   },
   getAdjecantSquares:function(startNode){
-    var parentNode = startNode[0].id,
-        horizontalAdjecantNodes = [],
-        verticalAdjecantNodes = [];
-
+    var parentNode = this.openlist[0];
+    console.log(parentNode.id);
+    x = parseInt(parentNode.id.substr(0,parentNode.id.indexOf(',')));
+    console.log(x);
+    parentNode.setParentNode(parentNode.id);
+    var test = startNode[4][4];
+    test.setParentNode(parentNode.id);
+    console.log(test.parentsquare,test.id);
   },
-  getStartingPoint:function(startNode){
-    this.getAdjecantSquares(startNode);
-  },
-  setUnwalkableNodes:function(startpoint,walls,endpoint){
-    var unwalkable = [startpoint,walls,endpoint];
-    for (var i = 0; i < unwalkable.length; i++) {
-      for (var i = 0; i < array.length; i++) {
-        array[i]
-      }
-      unwalkable[i]
-    }
-    console.log(unwalkable);
-  },
-  getWalls:function(walls){
-  },
-  getendpoint:function(endpoint){
-  }
 }
