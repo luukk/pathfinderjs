@@ -1,6 +1,7 @@
 var astar = {
   openlist: [], // contains squares that might fall along the path, and need to be checked out
   closedlist:[], //list of squares that you temporarly not have to look at, these squares are unwalkable
+  parentsquares: [],
 
   getGrid:function(){
     var grid = Object.create(Grid);
@@ -15,17 +16,23 @@ var astar = {
   },
   pushStartingSquare:function(grid){
     var startpoint = grid.startpoint[0];
-    this.openlist.push(startpoint);
+    this.parentsquares.push(startpoint);
     this.getAdjecantSquares(grid.grid);
   },
-  getAdjecantSquares:function(startNode){
-    var parentNode = this.openlist[0];
-    console.log(parentNode.id);
+  getAdjecantSquares:function(grid){
+    //first array in the closedlist is the parent
+    var tileGrid = grid;
+    var parentNode = this.parentsquares[0];
     x = parseInt(parentNode.id.substr(0,parentNode.id.indexOf(',')));
-    console.log(x);
-    parentNode.setParentNode(parentNode.id);
-    var test = startNode[4][4];
-    test.setParentNode(parentNode.id);
-    console.log(test.parentsquare,test.id);
+    y = parseInt(parentNode.id.substr(0,parentNode.id.lastIndexOf(',')));
+    //var vertical = [x-1][y-0]
+    for (var i = 0; i < 1; i++) {
+      for (var j = 0; j <= 1; j++) {
+        console.log(grid[y+j][x-1]);
+      }
+      for (var k = 0; k < 1; k++) {
+        console.log(grid[y-k][x+k]);
+      }
+    }
   },
 }
