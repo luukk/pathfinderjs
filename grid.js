@@ -17,8 +17,9 @@ var Grid = {
       for(var j =0; j<this.cols; j++){
         var xpos = 0+i*canvas.width/this.rows;
         var ypos = 0+j*canvas.height/this.cols;
-        var id = i+","+j;
-        tile = new Tile(xpos,ypos,id,this.rows,this.cols);
+        var xmap = i;
+        var ymap = j;
+        tile = new Tile(xpos,ypos,xmap,ymap,this.rows,this.cols);
         this.grid[i].push(tile);
       }
     }
@@ -82,7 +83,6 @@ var Grid = {
       self.setGreen(context);
       self.setRed(context);
       self.setWalls(context);
-
   },
   getNodes: function(context){
     var self = this;

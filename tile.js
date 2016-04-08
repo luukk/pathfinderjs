@@ -1,9 +1,10 @@
-function Tile(xpos,ypos,id,rows,cols) {
+function Tile(xpos,ypos,xmap,ymap,rows,cols) {
   this.status = 1 //1 is walkable 0 is not;
   this.gscore = 999;
   this.hscore = 999;
   this.fscore = 1998;
-  this.id = id;
+  this.xmap = xmap;
+  this.ymap = ymap;
   this.parentsquare = 999;
   this.xpos = xpos;
   this.ypos = ypos;
@@ -45,4 +46,7 @@ function Tile(xpos,ypos,id,rows,cols) {
   this.setParentNode = function(id){
     this.parentsquare = id;
   }
+  /*this.gscore = function(endTile){
+
+  }*/
 }
