@@ -48,6 +48,16 @@ function Tile(xpos,ypos,xmap,ymap,id,rows,cols) {
     this.parentsquare = id;
   }
   this.heuristic = function(endTile){
-
+    //manhattan distance from the square to the endpoint
+    var xscore = Math.abs(this.xmap - endTile[0].xmap);
+    var yscore = Math.abs(this.ymap - endTile[0].ymap);
+    var heuristic = xscore+yscore;
+    this.hscore = heuristic;
+  }
+  this.calcFScore = function(){
+    this.fscore = this.gscore + this.fscore;
+  }
+  this.calcGScore = function(score){
+    this.gscore = score;
   }
 }
