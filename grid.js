@@ -65,6 +65,8 @@ var Grid = {
     for (var i = 0; i < arrs.length; i++) {
       for (var j = 0; j < arrs[i].length; j++) {
         arrs[i][j].setWhite();
+        arrs[i][j].status = 1;
+        arrs[i][j].gscore = 999;
       }
       arrs[i].length = 0;
     }
