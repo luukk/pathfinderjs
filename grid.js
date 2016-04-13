@@ -30,6 +30,8 @@ var Grid = {
     for(var i = 0; i<this.rows;i++){
      for (var j = 0; j < this.cols; j++) {
        this.getGrid()[i][j].draw(this.context);
+       this.getGrid()[i][j].hscore = 999;
+       this.getGrid()[i][j].gscore = 999;
       }
     }
   },
@@ -60,13 +62,11 @@ var Grid = {
     }
     this.drawGrid(context);
   },
-  cleararr:function(context,ar1,ar2,ar3){
+  resetGrid:function(context,ar1,ar2,ar3,ar4){
     var arrs = [ar1,ar2,ar3];
     for (var i = 0; i < arrs.length; i++) {
       for (var j = 0; j < arrs[i].length; j++) {
         arrs[i][j].setWhite();
-        arrs[i][j].status = 1;
-        arrs[i][j].gscore = 999;
       }
       arrs[i].length = 0;
     }
@@ -81,7 +81,7 @@ var Grid = {
       data[green] = self.greenTile.value;
       data[red] = self.redTile.value;
       data[walls] = self.wallsTiles.value;
-      self.cleararr(context,self.startpoint,self.endpoint,self.walls);
+      self.resetGrid(context,self.startpoint,self.endpoint,self.walls);
       self.dataEmitter(data,context);
       self.setGreen(context);
       self.setRed(context);
