@@ -30,8 +30,8 @@ var Grid = {
     for(var i = 0; i<this.rows;i++){
      for (var j = 0; j < this.cols; j++) {
        this.getGrid()[i][j].draw(this.context);
-       this.getGrid()[i][j].hscore = 999;
-       this.getGrid()[i][j].gscore = 999;
+       this.getGrid()[i][j].hscore = Infinity;
+       this.getGrid()[i][j].gscore = Infinity;
       }
     }
   },

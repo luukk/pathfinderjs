@@ -1,12 +1,12 @@
 function Tile(xpos,ypos,xmap,ymap,id,rows,cols) {
   this.status = 1 //1 is walkable 0 is not;
-  this.gscore = 999;
-  this.hscore = 999;
-  this.fscore = 1998;
+  this.gscore = Infinity;
+  this.hscore = Infinity;
+  this.fscore = Infinity;
   this.id = id;
   this.xmap = xmap;
   this.ymap = ymap;
-  this.parentsquare = 999;
+  this.parentsquare = Infinity;
   this.xpos = xpos;
   this.ypos = ypos;
   this.rows = rows;
@@ -55,9 +55,10 @@ function Tile(xpos,ypos,xmap,ymap,id,rows,cols) {
     this.hscore = heuristic;
   }
   this.calcFScore = function(){
+    //console.log(this.gscore,this.fscore);
     this.fscore = this.gscore + this.fscore;
   }
-  this.calcGScore = function(score){
+  this.calcGScore = function(score,parentnode){
     this.gscore = score;
   }
 }
