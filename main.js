@@ -9,5 +9,5 @@ window.addEventListener('load', function(e) {
   grid.drawGrid(context);
   grid.getNodes(context);
 
-  astar.getGrid();
+  astar.getGridNodes();
 });
