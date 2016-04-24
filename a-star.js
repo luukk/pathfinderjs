@@ -8,22 +8,21 @@ var astar = {
       var grid = Object.create(Grid);
       self.pushStartingSquare(grid);
       self.heuristicDistance(grid);
-      self.adjacentSquares(grid);
+      self.checkPath(grid);
     });
   },
   pushStartingSquare:function(grid){
     this.closedlist.length = 0;
     grid.startpoint[0].calcGScore(0);
     this.closedlist.push(grid.startpoint[0]);
-    console.log(this.closedlist);
   },
   heuristicDistance:function(grid){
+    //console.log(grid);
     var x = startpoint.xmap;
     var y = startpoint.ymap;
     var walls = grid.walls;
     var endpoint = grid.endpoint;
     var grid = grid.grid;
-
     for (var i = 0; i < 15; i++) {
       for (var j = 0; j < 15; j++) {
         if(walls.indexOf(grid[i][j]) == -1){
@@ -35,12 +34,11 @@ var astar = {
     }
   },
   adjacentSquares: function(grid){
-    var grid = grid.grid;
-    var parent = this.closedlist.slice(-1).pop();
-    var selectedValue = parent.id.split(",");
-    var x = parseFloat(selectedValue[0]);
-    var y = parseFloat(selectedValue[1]);
-    var temp = [];
+    var parent = this.closedlist.slice(-1).pop(),
+        selectedValue = parent.id.split(","),
+        x = parseFloat(selectedValue[0]),
+        y = parseFloat(selectedValue[1]),
+        temp = [];
     for (var l = 1; l > -3; l-=2) {
       var xcor = x-l;
       var ycor = y-l;
@@ -50,11 +48,25 @@ var astar = {
         var yw = grid[x-l][y+1];
       }
       if(ycor > 0 ){
-      var xw = grid[x-0][y-l];
+        var xw = grid[x-0][y-l];
       }
-    temp.push.apply(temp, [xh,yh,yw,xw]);
-    adjacentSquares = temp.filter(function(n){ return n != undefined });
+      temp.push.apply(temp, [xh,yh,yw,xw]);
+      for(var i = temp.length - 1; i >= 0; i--) {
+        if(temp[i].status === 0) {
+           temp.splice(i, 1);
+        }
+      }
+      adjacentSquares = temp.filter(function(n){ return n != undefined });
     }
-    this.openlist.push(xh);
+    return adjacentSquares;
+  },
+  checkPath: function(grid){
+    var grid = grid.grid,
+        adjacentSquaresList = this.adjacentSquares(grid);
+    for (var i = 0; i < adjacentSquaresList.length; i++) {
+      if(this.openlist.indexOf(adjacentSquaresList[i]) == -1){
+        this.openlist.push(adjacentSquaresList[i]);
+      }
+    }
   }
 }
