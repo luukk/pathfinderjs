@@ -17,7 +17,6 @@ var astar = {
     this.closedlist.push(grid.startpoint[0]);
   },
   heuristicDistance:function(grid){
-    //console.log(grid);
     var x = startpoint.xmap;
     var y = startpoint.ymap;
     var walls = grid.walls;
@@ -50,15 +49,26 @@ var astar = {
       if(ycor > 0 ){
         var xw = grid[x-0][y-l];
       }
+      xh.calcGScore(10);
+      xw.calcGScore(10);
+      yh.calcGScore(14);
+      yw.calcGScore(14);
       temp.push.apply(temp, [xh,yh,yw,xw]);
       for(var i = temp.length - 1; i >= 0; i--) {
         if(temp[i].status === 0) {
-           temp.splice(i, 1);
+          temp[i].calcGScore(Infinity);
+           delete temp[i];
         }
       }
       adjacentSquares = temp.filter(function(n){ return n != undefined });
     }
+    this.setParentSquare(adjacentSquares,parent);
     return adjacentSquares;
+  },
+  setParentSquare: function(squares,parent){
+    for (var i = 0; i < squares.length; i++) {
+      squares[i].parentsquare = parent.id;
+    }
   },
   checkPath: function(grid){
     var grid = grid.grid,
