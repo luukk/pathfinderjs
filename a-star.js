@@ -7,7 +7,7 @@ var astar = {
     teken.addEventListener('click',function(){
       var grid = Object.create(Grid);
       self.pushStartingSquare(grid,context);
-      self.test(grid,context);
+      self.bestTile(grid,context);
     });
   },
   pushStartingSquare:function(grid,context){
@@ -93,7 +93,7 @@ var astar = {
       }
     }
   },
-  test: function(grid,context){
+  bestTile: function(grid,context){
     console.log(grid.grid);
     bestTile = grid.startpoint[0];
     function compare(a,b) {
