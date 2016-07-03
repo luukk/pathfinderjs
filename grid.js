@@ -5,6 +5,7 @@ var Grid = {
   startpoint:[],
   endpoint:[],
   walls:[],
+  pathTiles:[],
 
   init: function(context){
     this.greenTile = document.getElementById("startpoint");
@@ -29,7 +30,7 @@ var Grid = {
     this.context = context;
     for(var i = 0; i<this.rows;i++){
      for (var j = 0; j < this.cols; j++) {
-       this.getGrid()[i][j].draw(this.context);
+       this.grid[i][j].draw(this.context);
        this.getGrid()[i][j].hscore = Infinity;
        this.getGrid()[i][j].gscore = Infinity;
       }
@@ -62,14 +63,22 @@ var Grid = {
     }
     this.drawGrid(context);
   },
-  resetGrid:function(context,ar1,ar2,ar3,ar4){
-    var arrs = [ar1,ar2,ar3];
+  resetGrid:function(ar1){
+    var arrs = arguments;
     for (var i = 0; i < arrs.length; i++) {
       for (var j = 0; j < arrs[i].length; j++) {
         arrs[i][j].setWhite();
       }
       arrs[i].length = 0;
     }
+
+    for(var i = 0; i<this.rows;i++){
+      for (var j = 0; j < this.cols; j++) {
+        this.grid[i][j].setWhite();
+        this.grid[i][j].resetTile();
+      }
+    }
+    console.log(this.grid);
   },
   setNodes:function(context){
     this.init();
@@ -107,6 +116,12 @@ var Grid = {
       this.walls[i].setWall();
     }
     this.drawGrid(context);
+  },
+  setPath: function(context,pathTiles){
+    for (var i = 1; i < pathTiles.length-1; i++) {
+      pathTiles[i].setPathColor();
+      pathTiles[i].draw(context);
+    }
   },
   getGrid:function(){
     return this.grid;

@@ -8,6 +8,6 @@ window.addEventListener('load', function(e) {
   grid.generateGrid();
   grid.drawGrid(context);
   grid.getNodes(context);
+  astar.getGridNodes(context);
 
-  astar.getGridNodes();
 });

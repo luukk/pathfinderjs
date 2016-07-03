@@ -41,6 +41,9 @@ function Tile(xpos,ypos,xmap,ymap,id,rows,cols) {
   this.setWall = function(){
     this.color = "#0000cc";
   }
+  this.setPathColor = function(){
+    this.color = "#ffff00";
+  }
   this.unwalkable = function(){
     this.status = 0;
   }
@@ -51,14 +54,18 @@ function Tile(xpos,ypos,xmap,ymap,id,rows,cols) {
     //manhattan distance from the square to the endpoint
     var xscore = Math.abs(this.xmap - endTile[0].xmap);
     var yscore = Math.abs(this.ymap - endTile[0].ymap);
-    var heuristic = xscore+yscore;
+    var heuristic = 10*(xscore+yscore);
     this.hscore = heuristic;
   }
   this.calcFScore = function(){
-    //console.log(this.gscore,this.fscore);
-    this.fscore = this.gscore + this.fscore;
+    this.fscore = this.gscore + this.hscore;
   }
   this.calcGScore = function(score,parentnode){
     this.gscore = score;
+  }
+  this.resetTile = function(){
+    this.fscore = Infinity;
+    this.gscore = Infinity;
+    this.parentsquare = Infinity;
   }
 }
