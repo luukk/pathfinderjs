@@ -1,3 +1,11 @@
+var colMap = {
+  "white":"#FFFFFF",
+  "green":"#00CC00",
+  "red"  :"#CC0000",
+  "wall" :"#0000CC",
+  "path" :"#ffff00"
+}
+
 function Tile(xpos,ypos,xmap,ymap,id,rows,cols) {
   this.status = 1 //1 is walkable 0 is not;
   this.gscore = Infinity;
@@ -17,32 +25,32 @@ function Tile(xpos,ypos,xmap,ymap,id,rows,cols) {
   this.offsetx = this.xpos+this.cw/this.rows;
   this.offsety = this.ypos+this.ch/this.cols;
 
-  this.draw = function(context){
-    context.beginPath();
-    context.moveTo(this.xpos,this.ypos);
-    context.lineTo(this.offsetx,this.ypos);
-    context.lineTo(this.offsetx,this.offsety);
-    context.lineTo(this.xpos,this.offsety);
-    context.lineTo(this.xpos,this.ypos);
-    context.lineWidth = 2;
-    context.fillStyle = this.color;
-    context.fill();
-    context.stroke();
+  this.draw = function(ctx){
+    ctx.beginPath();
+    ctx.moveTo(this.xpos,this.ypos);
+    ctx.lineTo(this.offsetx,this.ypos);
+    ctx.lineTo(this.offsetx,this.offsety);
+    ctx.lineTo(this.xpos,this.offsety);
+    ctx.lineTo(this.xpos,this.ypos);
+    ctx.lineWidth = 2;
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    ctx.stroke();
   }
   this.setGreen = function(){
-    this.color = "#00cc00";
+    this.color = colMap["green"];
   }
   this.setRed = function(){
-    this.color = "#cc0000";
+    this.color = colMap["red"];
   }
   this.setWhite = function(){
-    this.color = "#ffffff";
+    this.color = colMap["white"];
   }
   this.setWall = function(){
-    this.color = "#0000cc";
+    this.color = colMap["wall"];
   }
   this.setPathColor = function(){
-    this.color = "#ffff00";
+    this.color = colMap["path"];
   }
   this.unwalkable = function(){
     this.status = 0;
